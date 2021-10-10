@@ -1,5 +1,4 @@
 #!/bin/bash
-su -
 apt update && \
 apt -y install build-essential wget curl        \
     xinit xorg xserver-xorg x11-xserver-utils    \
@@ -13,19 +12,7 @@ apt -y install build-essential wget curl        \
     neovim      \
 
 # install suckless apps
-suckless=(
-    "dwm-6.2"
-    "dmenu-5.0"
-    "st-0.8.2"
-    "slstatus"
-)
-for app in "${suckless[@]}"
-do
-    pushd ./core/${app}
-    make clean install
-    popd
-done
-exit
+./suckless.sh
 
 # config startx
 cp dotfiles/.xinitrc /home/$USER/.xinitrc
