@@ -1,7 +1,8 @@
 #!/bin/bash
-sudo apt update && \
+su -
+apt update && \
 apt -y install build-essential wget curl        \
-    xinit xserver-xorg zsh x11-xserver-utils    \
+    xinit xorg xserver-xorg x11-xserver-utils    \
     libx11-dev libxinerama-dev libxft-dev       \
     fonts-font-awesome fonts-firacode           \
     compton nitrogen                            \
@@ -24,6 +25,7 @@ do
     make clean install
     popd
 done
+exit
 
 # config startx
 cp dotfiles/.xinitrc /home/$USER/.xinitrc
