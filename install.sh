@@ -17,6 +17,13 @@ apt -y install build-essential wget curl        \
 # install suckless apps
 ./suckless.sh
 
+# tmux-resurrect
+git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
+
+
 # config startx
+mkdir -p /home/$USER/.config/kitty && \
+cp -R dotfiles/kitty /home/$USER/.config/kitty
+
 cp dotfiles/.xinitrc /home/$USER/.xinitrc
-cp dwm.desktop /usr/share/xsessions
+# cp dwm.desktop /usr/share/xsessions
