@@ -18,7 +18,7 @@ suckless=(
     "st-0.8.2"
     "slstatus"
 )
-for app in "${$suckless[@]}"
+for app in "${suckless[@]}"
 do
     pushd ./core/${app}
     make clean install
