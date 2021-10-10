@@ -22,8 +22,8 @@ git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
 
 
 # config startx
-mkdir -p /home/$USER/.config/kitty && \
-cp -R dotfiles/kitty /home/$USER/.config/kitty
+KITTY_CFG_PATH=/home/$USER/.config/kitty
+mkdir -p $KITTY_CFG_PATH && cp -R dotfiles/kitty/* $KITTY_CFG_PATH
 
 cp dotfiles/.xinitrc /home/$USER/.xinitrc
 # cp dwm.desktop /usr/share/xsessions
