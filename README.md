@@ -22,3 +22,7 @@ cd dwm
 - [dwm](https://dwm.suckless.org/)
 - [slstatus](https://git.suckless.org/slstatus/file/README.html) 
 - [vanitygaps](https://dwm.suckless.org/patches/vanitygaps/)
+
+# Themes
+
+`lxappearance`
