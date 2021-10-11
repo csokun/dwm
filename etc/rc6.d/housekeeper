@@ -1,0 +1,3 @@
+#!/bin/sh
+# gracefully shutdown Firefox
+killall -HUP firefox

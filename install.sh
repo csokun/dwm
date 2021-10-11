@@ -17,6 +17,9 @@ apt -y install build-essential wget curl        \
 # helper scripts
 chmod a+x ./usr/bin/* && cp -R ./usr/bin/* /usr/bin/
 
+# shutdown/restart script
+chmod +x ./etc/rc6.d/* && cp -R ./etc/rc6.d/* /etc/rc6.d/
+
 # lightdm
 systemctl enable lightdm
 cp -R ./etc/lightdm/* /etc/lightdm/
