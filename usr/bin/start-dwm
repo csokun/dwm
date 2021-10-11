@@ -1,4 +1,5 @@
 #!/bin/sh
+/usr/bin/resolution &
 
 # slstatus Bar
 /usr/local/bin/slstatus &

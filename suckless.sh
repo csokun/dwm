@@ -9,6 +9,7 @@ suckless=(
 for app in "${suckless[@]}"
 do
     pushd ./core/${app}
+    rm ./core/${app}/config.h
     make clean install
     popd
 done

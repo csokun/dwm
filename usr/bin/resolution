@@ -1,0 +1,5 @@
+#!/bin/sh
+# view avaialable resolutions
+#   xrandr -q
+# set resolution
+# xrandr --output DVI-0 --primary --mode 1440x900
