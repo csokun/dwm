@@ -37,3 +37,6 @@ mkdir -p $KITTY_CFG_PATH && cp -R dotfiles/kitty/* $KITTY_CFG_PATH
 
 # tmux config
 cp dotfile/.tmux.conf ~/.tmux.conf
+
+# default wallpaper
+cp -R usr/share/wallpapers/* /usr/share/wallpapers
