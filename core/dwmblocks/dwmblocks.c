@@ -30,7 +30,6 @@ void setroot();
 void statusloop();
 void termhandler(int signum);
 
-
 #include "config.h"
 
 static Display *dpy;
@@ -73,7 +72,6 @@ int gcd(int a, int b)
 	}
 	return a;
 }
-
 
 //opens process *cmd and stores output in *output
 void getcmd(const Block *block, char *output)
@@ -202,7 +200,6 @@ void pstdout()
 	printf("%s\n",statusstr[0]);
 	fflush(stdout);
 }
-
 
 void statusloop()
 {
