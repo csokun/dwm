@@ -741,8 +741,8 @@ drawbar(Monitor *m)
 				ch = *s;
 				*s = '\0';
 				sw = TEXTW(text) - lrpad;
-				drw_text(drw, m->ww - statusw + x, 0, tw, bh, 0, text, 0);
-				x += tw;
+				drw_text(drw, m->ww - statusw + x, 0, sw, bh, 0, text, 0);
+				x += sw;
 				*s = ch;
 				text = s + 1;
 			}
