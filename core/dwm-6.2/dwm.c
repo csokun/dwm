@@ -245,6 +245,8 @@ static void zoom(const Arg *arg);
 /* variables */
 static const char broken[] = "broken";
 static char stext[256];
+static int dwmblockssig;
+pid_t dwmblockspid = 0;
 static int statusw;
 static int statussig;
 static pid_t statuspid = -1;
@@ -455,7 +457,7 @@ buttonpress(XEvent *e)
 			x = selmon->ww - statusw;
 			click = ClkStatusText;
 			statussig = 0;
-			for (text = s = stext; *s && x <= ev->x; s++) {
+		statusw	for (text = s = stext; *s && x <= ev->x; s++) {
 				if ((unsigned char)(*s) < ' ') {
 					ch = *s;
 					*s = '\0';
@@ -916,28 +918,16 @@ getatomprop(Client *c, Atom prop)
 	return atom;
 }
 
-pid_t
-getstatusbarpid()
+int
+getdwmblockspid()
 {
-	char buf[32], *str = buf, *c;
-	FILE *fp;
-
-	if (statuspid > 0) {
-		snprintf(buf, sizeof(buf), "/proc/%u/cmdline", statuspid);
-		if ((fp = fopen(buf, "r"))) {
-			fgets(buf, sizeof(buf), fp);
-			while ((c = strchr(str, '/')))
-				str = c + 1;
-			fclose(fp);
-			if (!strcmp(str, STATUSBAR))
-				return statuspid;
-		}
-	}
-	if (!(fp = popen("pidof -s "STATUSBAR, "r")))
-		return -1;
+	char buf[16];
+	FILE *fp = popen("pidof -s dwmblocks", "r");
 	fgets(buf, sizeof(buf), fp);
+	pid_t pid = strtoul(buf, NULL, 10);
 	pclose(fp);
-	return strtol(buf, NULL, 10);
+	dwmblockspid = pid;
+	return pid != 0 ? 0 : -1;
 }
 
 int
@@ -1624,6 +1614,9 @@ setup(void)
 	/* clean up any zombies immediately */
 	sigchld(0);
 
+	signal(SIGHUP, sighup);
+	signal(SIGTERM, sigterm);
+
 	/* init screen */
 	screen = DefaultScreen(dpy);
 	sw = DisplayWidth(dpy, screen);
@@ -1725,6 +1718,20 @@ sigchld(int unused)
 }
 
 void
+sighup(int unused)
+{
+	Arg a = {.i = 1};
+	quit(&a);
+}
+
+void
+sigterm(int unused)
+{
+	Arg a = {.i = 0};
+	quit(&a);
+}
+
+void
 sigdwmblocks(const Arg *arg)
 {
 	union sigval sv;
@@ -1739,18 +1746,6 @@ sigdwmblocks(const Arg *arg)
 				sigqueue(dwmblockspid, SIGUSR1, sv);
 		}
 	}
-}
-
-int
-getdwmblockspid()
-{
-	char buf[16];
-	FILE *fp = popen("pidof -s dwmblocks", "r");
-	fgets(buf, sizeof(buf), fp);
-	pid_t pid = strtoul(buf, NULL, 10);
-	pclose(fp);
-	dwmblockspid = pid;
-	return pid != 0 ? 0 : -1;
 }
 
 void
